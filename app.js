@@ -46,6 +46,7 @@ app.get('/', (req, res) => {
 });
 
 // blog routes
+// get all blogs from the database and render them
 app.get('/blogs', (req, res) => {
   Blog.find().sort({ createdAt: -1 })
     .then((result) => {
