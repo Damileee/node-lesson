@@ -69,6 +69,29 @@ app.post('/blogs', (req, res) => {
     });
 });
 
+app.get('/blogs/:id', (req, res) => {
+  const id = req.params.id;
+  Blog.findById(id)
+    .then((result) => {
+      res.render('details', { blog: result, title: 'Blog Details' });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(404).render('404', { title: 'Blog not found' });
+    });
+});
+
+app.delete('/blogs/:id', (req, res) => {
+  const id = req.params.id;
+  Blog.findByIdAndDelete(id)
+    .then((result) => {
+      res.json({ redirect: '/blogs' });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 app.get('/about', (req, res) => {
   res.render('about', { title: 'About' });
 });
